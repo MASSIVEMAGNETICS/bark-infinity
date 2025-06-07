@@ -447,3 +447,17 @@ os.environ["SUNO_USE_SMALL_MODELS"] = True
 
 #### My generated audio sounds like a 1980s phone call. What's happening?
 * Bark generates audio from scratch. It is not meant to create only high-fidelity, studio-quality speech. Rather, outputs could be anything from perfect speech to multiple people arguing at a baseball game recorded with bad microphones.
+
+## Fusion Transformer
+
+`FusionTransformer` enables experimentation with a mixture-of-experts approach.
+It loads a list of Hugging Face models and learns weights that combine their
+hidden states.
+
+```python
+from bark_infinity import FusionTransformer
+
+model = FusionTransformer(["bert-base-uncased", "roberta-base"])
+inputs = model.encode("hello world")
+output = model(**inputs)
+```
