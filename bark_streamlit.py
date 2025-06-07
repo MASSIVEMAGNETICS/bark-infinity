@@ -6,9 +6,10 @@ import subprocess
 
 import streamlit as st
 
-from bark_infinity import api, config
+from bark_infinity import api, config, error_handling
 
 logger = config.logger
+error_handling.set_global_exception_logger()
 
 REQUIREMENTS = "requirements-pip.txt"
 
@@ -92,7 +93,8 @@ def main():
             "waveform_temp": waveform_temp,
         }
         st.write("Generating audio ...")
-        filename = api.generate_audio_long_from_gradio(**kwargs)
+        safe_generate = error_handling.retry_on_exception()(api.generate_audio_long_from_gradio)
+        filename = safe_generate(**kwargs)
         if filename and os.path.exists(filename):
             st.audio(filename)
             st.success(f"Saved to {filename}")

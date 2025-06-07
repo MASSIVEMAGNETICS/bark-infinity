@@ -9,6 +9,7 @@ logger = config.logger
 
 from bark_infinity import generation
 from bark_infinity import api
+from bark_infinity import error_handling
 
 from bark_infinity import text_processing
 
@@ -39,6 +40,7 @@ def get_group_args(group_name, updated_args):
     return group_args
 
 def main(args):
+    error_handling.set_global_exception_logger()
 
     if args.loglevel is not None:
         logger.setLevel(args.loglevel)
@@ -113,7 +115,8 @@ def main(args):
             args.text_prompt = text_prompt
             args_dict = vars(args)
 
-            api.generate_audio_long(**args_dict)
+            safe_generate = error_handling.retry_on_exception()(api.generate_audio_long)
+            safe_generate(**args_dict)
 
 
 if __name__ == "__main__":

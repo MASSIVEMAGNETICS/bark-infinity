@@ -13,9 +13,11 @@ from bark_infinity import config
 
 logger = config.logger
 logger.setLevel("INFO")
+error_handling.set_global_exception_logger()
 
 from bark_infinity import generation
 from bark_infinity import api
+from bark_infinity import error_handling
 
 
 generation.OFFLOAD_CPU = True
@@ -211,7 +213,8 @@ def generate_audio_long_gradio(input, npz_dropdown, generated_voices, confused_t
     print(f"Using these params: {using_these_params}")
 
 
-    full_generation_segments, audio_arr_segments, final_filename_will_be = api.generate_audio_long_from_gradio(**kwargs)
+    safe_generate = error_handling.retry_on_exception()(api.generate_audio_long_from_gradio)
+    full_generation_segments, audio_arr_segments, final_filename_will_be = safe_generate(**kwargs)
 
     if kwargs.get('dry_run', False):
         final_filename_will_be = "bark_infinity/assets/split_the_text.wav"
