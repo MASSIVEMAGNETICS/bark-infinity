@@ -1,0 +1,23 @@
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+}
+.gradio-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.gr-button {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+}
+.bark_console {
+    background: #000;
+    color: #0f0;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-family: "Courier New", monospace;
+    overflow-y: auto;
+    max-height: 400px;
+}
+

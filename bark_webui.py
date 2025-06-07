@@ -63,6 +63,15 @@ font: 1.3rem Inconsolata, monospace;
   overflow-x: hidden;
   }
 """
+
+# Load additional custom styling for a more polished UI
+custom_css = ""
+try:
+    css_path = os.path.join(os.path.dirname(__file__), "bark_infinity", "ui", "style.css")
+    with open(css_path, "r", encoding="utf-8") as f:
+        custom_css = f.read()
+except FileNotFoundError:
+    pass
 import functools
 
 def timeout(seconds):
@@ -105,7 +114,7 @@ def start_long_running_function_thread(*args, **kwargs):
     thread = threading.Thread(target=cancellable_generate_audio_long_gradio, args=args, kwargs=kwargs)
     thread.start()
 
-# I made a CLI app. This is my solution. I'm not proud of it.
+# Helper to parse extra command line style options entered in the UI
 def parse_extra_args(extra_args_str):
     extra_args = extra_args_str.split('--')
     parsed_args = {}
@@ -138,7 +147,7 @@ def generate_audio_long_gradio(input, npz_dropdown, generated_voices, confused_t
     kwargs = {}
     kwargs["text_prompt"] = input
     
-    # I must have screwed up why are these values so messed up
+    # Ensure dropdowns have valid selections
     if npz_dropdown != '' and npz_dropdown is not None:
         if len(npz_dropdown.strip()) > 6: kwargs["history_prompt"] = npz_dropdown
     if generated_voices != '' and generated_voices is not None:
@@ -347,13 +356,17 @@ def format_defaults(defaults):
 
 formatted_defaults = format_defaults(config.DEFAULTS)
 
-with gr.Blocks(theme=default_theme,css=bark_console_style) as demo:
-    gr.Markdown(
-        """
-    # <a href="https://github.com/JonathanFly/bark">Bark Infinity "Command Line" </a>
+# Combine built-in console styling with the optional custom CSS
+combined_css = bark_console_style + custom_css
 
-    This is a kind of mess but some of the new features even work. I recommend checking the 💎💎 box in the bottom right.
-    """
+with gr.Blocks(theme=default_theme, css=combined_css, title="Bark Infinity") as demo:
+    gr.HTML(
+        """
+        <div style='text-align:center;'>
+            <h1>Bark Infinity</h1>
+            <p>Generate long form audio with a streamlined interface.</p>
+        </div>
+        """,
     )
 
 
