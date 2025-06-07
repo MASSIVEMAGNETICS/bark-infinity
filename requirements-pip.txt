@@ -13,3 +13,4 @@ pathvalidate
 gradio
 rich-argparse
 encodec
+streamlit
