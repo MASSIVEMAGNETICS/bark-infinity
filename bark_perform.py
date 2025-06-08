@@ -1,4 +1,5 @@
 import argparse
+import os
 import numpy as np
 
 from rich import print
@@ -44,6 +45,23 @@ def main(args):
 
     if args.loglevel is not None:
         logger.setLevel(args.loglevel)
+
+    # Environment and model configuration options
+    if getattr(args, 'OFFLOAD_CPU', None) is not None:
+        generation.OFFLOAD_CPU = args.OFFLOAD_CPU
+        os.environ["SUNO_OFFLOAD_CPU"] = str(args.OFFLOAD_CPU)
+    if getattr(args, 'GLOBAL_ENABLE_MPS', None) is not None:
+        generation.GLOBAL_ENABLE_MPS = args.GLOBAL_ENABLE_MPS
+        os.environ["SUNO_ENABLE_MPS"] = str(args.GLOBAL_ENABLE_MPS)
+    if getattr(args, 'USE_SMALL_MODELS', None) is not None:
+        generation.USE_SMALL_MODELS = args.USE_SMALL_MODELS
+        os.environ["SUNO_USE_SMALL_MODELS"] = str(args.USE_SMALL_MODELS)
+    if getattr(args, 'use_smaller_models', False):
+        generation.USE_SMALL_MODELS = True
+        os.environ["SUNO_USE_SMALL_MODELS"] = "True"
+        args.text_use_small = True
+        args.coarse_use_small = True
+        args.fine_use_small = True
 
 
 
