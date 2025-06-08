@@ -94,7 +94,7 @@ python bark_webui.py
 
 I dipped my toes back into a bit [twitter.com/jonathanfly](https://twitter.com/jonathanfly)
 
-## 🌟 (OLD NOT UPDATED) Main Features 🌟 __ 
+## 🌟 Main Features 🌟
 
 ### 1. INFINITY VOICES 🔊🌈
 Discover cool new voices and reuse them. Performers, musicians, sound effects, two party dialog scenes. Save and share them. Every audio clip saves a speaker.npz file with the voice. To reuse a voice, move the generated speaker.npz file (named the same as the .wav file) to the "prompts" directory inside "bark" where all the other .npz files are.
@@ -118,6 +118,36 @@ Confused Travolta GIF
 ![confused_travolta](https://user-images.githubusercontent.com/163408/233747428-c6bf03e2-b3ce-4ce3-a29d-836bf73a4ec2.gif)
 
 Can your text-to-speech model stammer and stall like a student answering a question about a book they didn't read? Bark can. That's the human touch. The *semantic* touch. You can almost feel the awkward silence through the screen.
+
+### 3. Streamlit GUI with Auto Install
+Generate audio directly in your browser using the `bark_streamlit.py` app. The
+GUI automatically installs required packages when first launched so you can get
+started quickly.
+
+### 4. Polished Web UI
+The default Gradio interface received a facelift with improved styling for a
+cleaner experience.
+
+### 5. Fault Tolerant Processing
+All generation functions use retry logic from `error_handling.py` to recover
+from intermittent failures and keep long jobs running.
+
+### 6. Victor Bark Fusion GUI
+`victor_bark_fusion_gui.py` combines Bark Infinity with Victor Prime's Hive
+simulation, letting you evolve text prompts in real time.
+
+### 7. Digital Evolution Module
+The `digital_evolution.py` module implements a simple cognitive swarm that can
+mutate and evolve over time.
+
+### 8. FusionTransformer
+`FusionTransformer` allows experimentation with a mixture-of-experts approach by
+combining the hidden states of multiple Hugging Face models.
+
+### 9. CLI Environment Options
+`bark_perform.py` now includes flags to set environment variables like
+`SUNO_OFFLOAD_CPU`, `SUNO_ENABLE_MPS` and `SUNO_USE_SMALL_MODELS` so you can
+configure hardware usage from the command line.
 
 ## 💡 But Wait, There's More: Travolta Mode Isn't Just A Joke 💡
 
