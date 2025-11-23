@@ -41,7 +41,17 @@ cp Dockerfile "$RELEASE_DIR/deployment/"
 echo ""
 echo "Step 5: Creating checksum file..."
 cd "$RELEASE_DIR"
-sha256sum * > checksums.txt
+
+# Use cross-platform checksum command
+if command -v sha256sum &> /dev/null; then
+    sha256sum * > checksums.txt
+elif command -v shasum &> /dev/null; then
+    shasum -a 256 * > checksums.txt
+else
+    echo "Warning: No SHA256 command found (sha256sum or shasum)"
+    echo "Skipping checksum generation"
+fi
+
 cd ..
 
 echo ""

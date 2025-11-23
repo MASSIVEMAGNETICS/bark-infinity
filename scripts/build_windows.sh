@@ -22,6 +22,13 @@ rm -rf build/ dist/ *.spec
 echo "Installing dependencies..."
 pip install -e .[build]
 
+# Verify bark_webui.py exists
+if [ ! -f "bark_webui.py" ]; then
+    echo "Error: bark_webui.py not found in current directory"
+    echo "Make sure you are running this script from the bark-infinity root directory"
+    exit 1
+fi
+
 # Create spec file if it doesn't exist
 if [ ! -f "bark-infinity.spec" ]; then
     echo "Generating PyInstaller spec file..."

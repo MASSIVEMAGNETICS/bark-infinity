@@ -119,14 +119,20 @@ Examples:
 def cmd_generate(args):
     """Handle generate command."""
     try:
-        from bark_infinity import generate_audio, setup_low_compute_mode
+        from bark_infinity import generate_audio, SAMPLE_RATE
         from scipy.io.wavfile import write as write_wav
         
         print(f"Generating audio for: {args.text}")
         
         if args.low_compute:
             print("Enabling low-compute mode...")
-            config = setup_low_compute_mode()
+            try:
+                from bark_infinity import setup_low_compute_mode
+                config = setup_low_compute_mode()
+            except ImportError:
+                print("Warning: Quantization dependencies not installed.")
+                print("Install with: pip install bark-infinity[quantization]")
+                print("Continuing without quantization optimizations...")
         
         # Generate audio
         audio_array = generate_audio(
@@ -135,7 +141,6 @@ def cmd_generate(args):
         )
         
         # Save to file
-        from bark_infinity import SAMPLE_RATE
         write_wav(args.output, SAMPLE_RATE, audio_array)
         
         print(f"✓ Audio saved to: {args.output}")

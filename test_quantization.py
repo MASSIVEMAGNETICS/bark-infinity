@@ -33,7 +33,8 @@ def test_quantization_config():
     
     # Test explicit config
     config = QuantizationConfig(enable_8bit=True, device='cpu')
-    assert config.enable_8bit == False, "8-bit should be disabled on CPU"
+    # 8-bit should be disabled on CPU because bitsandbytes requires CUDA
+    assert config.enable_8bit == False, "8-bit should be disabled on CPU (no CUDA)"
     print("✓ 8-bit correctly disabled on CPU")
     
     # Test from environment

@@ -133,26 +133,8 @@ EXPOSE 7860 8501
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
     CMD python -c "import bark_infinity; print('healthy')" || exit 1
 
-# Entry point script
-COPY --chown=bark:bark <<'EOF' /app/docker-entrypoint.sh
-#!/bin/bash
-set -e
-
-# Auto-detect GPU and set appropriate environment
-if command -v nvidia-smi &> /dev/null; then
-    echo "GPU detected, using GPU mode"
-    export SUNO_OFFLOAD_CPU=False
-    export SUNO_USE_SMALL_MODELS=False
-else
-    echo "No GPU detected, using CPU mode with optimizations"
-    export SUNO_OFFLOAD_CPU=True
-    export SUNO_USE_SMALL_MODELS=True
-fi
-
-# Execute the command
-exec "$@"
-EOF
-
+# Copy entrypoint script
+COPY --chown=bark:bark docker-entrypoint.sh /app/docker-entrypoint.sh
 RUN chmod +x /app/docker-entrypoint.sh
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
