@@ -54,6 +54,60 @@ streamlit run bark_streamlit.py
 
 Visit http://localhost:7860 to access the interface.
 
+## 📚 Documentation
+
+- **[📖 Quick Start Guide](QUICKSTART.md)** - Command reference and examples
+- **[🚀 Deployment Guide](DEPLOYMENT.md)** - Complete deployment instructions for all platforms
+- **[📱 Mobile Access](MOBILE.md)** - How to use Bark Infinity on mobile devices
+- **[📝 Changelog](CHANGELOG.md)** - Version history and updates
+- **[🤝 Contributing](CONTRIBUTING.md)** - How to contribute to the project
+
+### Platform-Specific Guides
+
+- **Windows EXE**: Download from [Releases](https://github.com/MASSIVEMAGNETICS/bark-infinity/releases), no Python needed
+- **Docker**: See [DEPLOYMENT.md](DEPLOYMENT.md#docker-deployment) for CPU/GPU options
+- **Cloud**: Deploy to [Hugging Face Spaces](DEPLOYMENT.md#hugging-face-spaces-free-tier-available), AWS, GCP, or Azure
+- **Mobile**: See [MOBILE.md](MOBILE.md) for web-based and API access options
+
+## 📱 Mobile & iOS/Android
+
+**Important**: Native iOS/Android apps are not possible due to model size (~12GB) and compute requirements. However, you have excellent alternatives:
+
+✅ **Web Access**: Deploy to a server and access via mobile browser (works perfectly!)
+✅ **Cloud Hosting**: Use Hugging Face Spaces or similar (free options available)
+✅ **PWA**: Install web UI as a Progressive Web App on mobile
+✅ **API Server**: Create custom mobile app calling remote backend
+
+See **[MOBILE.md](MOBILE.md)** for complete mobile access guide with step-by-step instructions.
+
+## 💡 Features
+
+### New in v0.1.0
+
+🔹 **Multiple Deployment Options**
+- Windows standalone executable (no Python needed)
+- Docker containers (CPU/GPU/Production)
+- PyPI package with optional dependencies
+- Cloud-ready deployment configs
+
+🔹 **Quantization & Low-Compute Support**
+- 8-bit and 4-bit model quantization
+- BetterTransformer optimization
+- Automatic device detection
+- 50-75% memory reduction
+
+🔹 **Enhanced CLI**
+- `bark-infinity generate "text"` - Generate audio
+- `bark-infinity webui` - Start web interface
+- `bark-infinity info` - System information
+- Full command-line control
+
+🔹 **Comprehensive Documentation**
+- Deployment guides for all platforms
+- Mobile access strategies
+- Quick reference guide
+- Contributing guidelines
+
 ---
 
 # 🌠 The Past: 🌠
