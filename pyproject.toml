@@ -1,36 +1,124 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61.0", "wheel", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "bark-infinity"
-version = "0.0.3"
-description = "Bark text to audio model"
+version = "0.1.0"
+description = "Bark Infinity - Advanced text-to-audio model with infinite length, voices, and cross-platform deployment"
 readme = "README.md"
-requires-python = ">=3.8"
-authors =  [
+requires-python = ">=3.8,<3.13"
+authors = [
     {name = "Suno Inc", email = "hello@suno.ai"},
     {name = "Jonathan Fly"},
 ]
-# Apache 2.0
 license = {file = "LICENSE"}
+keywords = ["text-to-speech", "tts", "audio", "bark", "ai", "ml", "transformers", "speech-synthesis"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 
-[project.urls]
-source = "https://github.com/JonathanFly/bark"
-
-[tool.setuptools]
-install_requires = [
-    {file = "requirements-pip.txt"},
+dependencies = [
+    "boto3>=1.26.0",
+    "funcy>=2.0",
+    "numpy>=1.22.0,<2.0.0",
+    "scipy>=1.9.0",
+    "tokenizers>=0.13.0",
+    "torch>=2.0.0",
+    "tqdm>=4.65.0",
+    "transformers>=4.30.0",
+    "ipython>=8.0.0",
+    "huggingface-hub>=0.14.0",
+    "rich>=13.0.0",
+    "pathvalidate>=3.0.0",
+    "gradio>=3.35.0",
+    "rich-argparse>=1.0.0",
+    "encodec>=0.1.1",
+    "streamlit>=1.22.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    {file = "requirements-dev-pip.txt"},
+    "pytest>=7.3.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.0.0",
+]
+quantization = [
+    "bitsandbytes>=0.41.0",
+    "optimum>=1.12.0",
+    "auto-gptq>=0.4.0",
+]
+build = [
+    "pyinstaller>=5.13.0",
+    "cx-Freeze>=6.15.0",
+]
+web = [
+    "uvicorn>=0.23.0",
+    "fastapi>=0.100.0",
+    "python-multipart>=0.0.6",
+]
+all = [
+    "bark-infinity[dev,quantization,build,web]",
 ]
 
+[project.urls]
+Homepage = "https://github.com/MASSIVEMAGNETICS/bark-infinity"
+Repository = "https://github.com/MASSIVEMAGNETICS/bark-infinity"
+Documentation = "https://github.com/MASSIVEMAGNETICS/bark-infinity#readme"
+"Bug Tracker" = "https://github.com/MASSIVEMAGNETICS/bark-infinity/issues"
+
+[project.scripts]
+bark-infinity = "bark_infinity.cli:main"
+bark-webui = "bark_webui:main"
+bark-streamlit = "bark_streamlit:main"
+
+[tool.setuptools]
+packages = ["bark_infinity", "bark", "bark.assets", "bark_infinity.assets", "bark_infinity.bark_legacy", "bark_infinity.ui"]
+include-package-data = true
 
 [tool.setuptools.package-data]
-bark-infinity = ["assets/prompts/*.npz", "assets/prompts/v2/*.npz", "ui/style.css"]
+bark_infinity = ["assets/prompts/*.npz", "assets/prompts/v2/*.npz", "ui/style.css"]
+bark = ["assets/prompts/*.npz", "assets/prompts/v2/*.npz"]
 
 [tool.black]
 line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true

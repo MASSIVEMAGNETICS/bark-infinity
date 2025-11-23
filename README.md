@@ -2,6 +2,60 @@
 
 ⚡ Low GPU memory? No problem. CPU offloading. ⚡
 
+## 🎯 Quick Start - Choose Your Deployment
+
+**New in v0.1.0:** Multiple deployment options for every platform!
+
+| Platform | Installation | Best For |
+|----------|-------------|----------|
+| 🪟 **Windows EXE** | [Download](https://github.com/MASSIVEMAGNETICS/bark-infinity/releases) & run | No Python needed! |
+| 🐳 **Docker** | `docker-compose up` | Production, any OS |
+| 🐍 **PyPI** | `pip install bark-infinity` | Developers, Python users |
+| ☁️ **Web/Cloud** | One-click deploy | Mobile access, hosting |
+| 💾 **Low-Compute** | Enable quantization | Limited GPU/RAM |
+
+📖 **[Full Deployment Guide](DEPLOYMENT.md)** | 📋 **[Changelog](CHANGELOG.md)**
+
+### ⚡ Super Quick Install
+
+```bash
+# PyPI (recommended)
+pip install bark-infinity
+
+# Or with quantization support for low-compute devices
+pip install bark-infinity[quantization]
+
+# Or Docker
+docker-compose up bark-infinity
+```
+
+### 🎮 Usage
+
+```python
+import bark_infinity
+
+# Basic usage
+audio = bark_infinity.generate_audio("Hello world!")
+
+# Low-compute mode (uses quantization if available)
+config = bark_infinity.setup_low_compute_mode()
+audio = bark_infinity.generate_audio("Hello from low-compute mode!")
+```
+
+### 🌐 Web Interface
+
+```bash
+# Gradio UI (user-friendly)
+python bark_webui.py
+
+# Streamlit UI (advanced controls)
+streamlit run bark_streamlit.py
+```
+
+Visit http://localhost:7860 to access the interface.
+
+---
+
 # 🌠 The Past: 🌠
 
 Bark Infinity started as a humble 💻 command line wrapper, a CLI 💬. Built from simple keyword commands, it was a proof of concept 🧪, a glimmer of potential 💡.

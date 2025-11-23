@@ -6,3 +6,17 @@ from .api import generate_audio_long, render_npz_samples, list_speakers
 from .config import logger, console, get_default_values, load_all_defaults, VALID_HISTORY_PROMPT_DIRS
 
 from .fusion_transformer import FusionTransformer
+
+# Quantization support for low-compute devices
+try:
+    from .quantization import (
+        QuantizationConfig,
+        quantize_model,
+        setup_low_compute_mode,
+        estimate_memory_savings,
+    )
+    __quantization_available__ = True
+except ImportError:
+    __quantization_available__ = False
+
+__version__ = "0.1.0"
