@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  # CPU-only service for low-resource deployment
+  bark-infinity-cpu:
+    build:
+      context: .
+      target: cpu
+      dockerfile: Dockerfile
+    container_name: bark-infinity-cpu
+    ports:
+      - "7860:7860"  # Gradio web UI
+      - "8501:8501"  # Streamlit UI
+    volumes:
+      - ./bark_samples:/app/bark_samples
+      - bark-cache:/home/bark/.cache
+    environment:
+      - SUNO_OFFLOAD_CPU=True
+      - SUNO_USE_SMALL_MODELS=True
+      - BARK_QUANTIZE_8BIT=False
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import bark_infinity; print('healthy')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # GPU-accelerated service (requires NVIDIA Docker runtime)
+  bark-infinity-gpu:
+    build:
+      context: .
+      target: gpu
+      dockerfile: Dockerfile
+      args:
+        - CUDA_VERSION=11.8.0
+    container_name: bark-infinity-gpu
+    ports:
+      - "7860:7860"  # Gradio web UI
+      - "8501:8501"  # Streamlit UI
+    volumes:
+      - ./bark_samples:/app/bark_samples
+      - bark-cache:/home/bark/.cache
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - SUNO_OFFLOAD_CPU=False
+      - SUNO_USE_SMALL_MODELS=False
+      - BARK_QUANTIZE_8BIT=True
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import bark_infinity; print('healthy')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Production service with auto-detection
+  bark-infinity:
+    build:
+      context: .
+      target: production
+      dockerfile: Dockerfile
+    container_name: bark-infinity
+    ports:
+      - "7860:7860"  # Gradio web UI
+      - "8501:8501"  # Streamlit UI
+    volumes:
+      - ./bark_samples:/app/bark_samples
+      - bark-cache:/home/bark/.cache
+    environment:
+      - SUNO_OFFLOAD_CPU=True
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import bark_infinity; print('healthy')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  bark-cache:
+    driver: local
+
+networks:
+  default:
+    name: bark-infinity-network

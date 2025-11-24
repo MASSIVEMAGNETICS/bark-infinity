@@ -8,3 +8,73 @@ custom_speakers/
 bark_infinity.egg-info/
 .history/
 *.log
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.dylib
+*.dll
+*.exe
+*.app
+
+# PyInstaller
+*.spec
+*.manifest
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Docker
+.dockerignore
+
+# Release artifacts
+release-*/
+
+# Model cache
+.cache/
+models/
+checkpoints/
+
+# Environment
+.env
+.env.local
