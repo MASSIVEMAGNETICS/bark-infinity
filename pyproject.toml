@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel", "setuptools-scm"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -86,8 +86,10 @@ bark-webui = "bark_webui:main"
 bark-streamlit = "bark_streamlit:main"
 
 [tool.setuptools]
-packages = ["bark_infinity", "bark", "bark.assets", "bark_infinity.assets", "bark_infinity.bark_legacy", "bark_infinity.ui"]
 include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["bark_infinity*", "bark*"]
 
 [tool.setuptools.package-data]
 bark_infinity = ["assets/prompts/*.npz", "assets/prompts/v2/*.npz", "ui/style.css"]
