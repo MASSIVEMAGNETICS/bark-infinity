@@ -72,7 +72,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
-    
+  
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -90,7 +90,7 @@ jobs:
         pyinstaller --name bark-infinity-webui --onefile --windowed --add-data "bark_infinity/assets:bark_infinity/assets" --hidden-import=bark_infinity bark_webui.py
     
     - name: Upload Windows executable
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: bark-infinity-windows-exe
         path: dist/bark-infinity-webui.exe
