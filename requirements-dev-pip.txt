@@ -13,3 +13,5 @@ pydocstyle
 pylint
 pytest
 pytest-cov
+fastapi
+uvicorn

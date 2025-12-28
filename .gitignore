@@ -8,3 +8,6 @@ custom_speakers/
 bark_infinity.egg-info/
 .history/
 *.log
+node_modules/
+web/node_modules/
+web/dist/

@@ -149,6 +149,26 @@ combining the hidden states of multiple Hugging Face models.
 `SUNO_OFFLOAD_CPU`, `SUNO_ENABLE_MPS` and `SUNO_USE_SMALL_MODELS` so you can
 configure hardware usage from the command line.
 
+### 10. React Web Client
+A brand-new Vite-powered React interface now talks to a lightweight FastAPI
+bridge. Launch `bark_react_server.py` to expose Bark Infinity as a JSON API and
+open the React client (`web/`) to experiment with prompts from any browser.
+
+#### Running the React experience
+1. Install the new Python dependencies and start the API server:
+   ```bash
+   pip install -r requirements-pip.txt
+   uvicorn bark_react_server:app --reload
+   ```
+2. In another terminal install and launch the React client:
+   ```bash
+   cd web
+   npm install
+   npm run dev
+   ```
+3. Visit the printed local URL (defaults to `http://localhost:5173`). You can
+   optionally set `VITE_API_BASE_URL` to point the UI at a remote Bark API.
+
 ## 💡 But Wait, There's More: Travolta Mode Isn't Just A Joke 💡
 
 Are you tired of telling your TTS model what to say? Why not take a break and let your TTS model do the work for you. With enough patience and Confused Travolta Mode, Bark can finish your jokes for you. 
