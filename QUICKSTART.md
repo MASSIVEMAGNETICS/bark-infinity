@@ -31,6 +31,9 @@ bark-infinity webui
 # Start Streamlit UI
 bark-infinity streamlit
 
+# Run setup wizard (creates a desktop launcher)
+bark-infinity setupwizard
+
 # Show system info
 bark-infinity info
 ```
