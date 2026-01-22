@@ -90,6 +90,40 @@ Examples:
         default=8501,
         help='Port to run Streamlit on (default: 8501)'
     )
+
+    # Setup wizard command
+    setupwizard_parser = subparsers.add_parser(
+        'setupwizard',
+        help='Run setup wizard and create a launcher'
+    )
+    setupwizard_parser.add_argument(
+        '--mode',
+        choices=['webui', 'streamlit'],
+        default='webui',
+        help='Launcher mode (default: webui)'
+    )
+    setupwizard_parser.add_argument(
+        '--port',
+        type=int,
+        default=None,
+        help='Override the default port'
+    )
+    setupwizard_parser.add_argument(
+        '--share',
+        action='store_true',
+        help='Create a public share link (webui only)'
+    )
+    setupwizard_parser.add_argument(
+        '--no-create-shortcut',
+        action='store_false',
+        dest='create_shortcut',
+        help='Skip creating a desktop launcher'
+    )
+    setupwizard_parser.add_argument(
+        '--install-missing',
+        action='store_true',
+        help='Install missing dependencies'
+    )
     
     # Info command
     info_parser = subparsers.add_parser(
@@ -110,6 +144,8 @@ Examples:
         return cmd_webui(args)
     elif args.command == 'streamlit':
         return cmd_streamlit(args)
+    elif args.command == 'setupwizard':
+        return cmd_setupwizard(args)
     elif args.command == 'info':
         return cmd_info(args)
     
@@ -258,38 +294,38 @@ def cmd_info(args):
         print(f"  ✓ Transformers: {transformers.__version__}")
     except ImportError:
         print("  ✗ Transformers: Not installed")
-    
+
     try:
         import gradio
         print(f"  ✓ Gradio: {gradio.__version__}")
     except ImportError:
         print("  ✗ Gradio: Not installed")
-    
+
     try:
         import streamlit
         print(f"  ✓ Streamlit: {streamlit.__version__}")
     except ImportError:
         print("  ✗ Streamlit: Not installed")
-    
+
     print()
-    
+
     # Quantization support
     print("Quantization Support:")
-    
+
     try:
         import bitsandbytes
         print(f"  ✓ bitsandbytes: {bitsandbytes.__version__}")
     except ImportError:
         print("  ✗ bitsandbytes: Not installed (for 8-bit/4-bit quantization)")
-    
+
     try:
         import optimum
         print(f"  ✓ optimum: {optimum.__version__}")
     except ImportError:
         print("  ✗ optimum: Not installed (for BetterTransformer)")
-    
+
     print()
-    
+
     # Environment variables
     print("Environment Configuration:")
     env_vars = [
@@ -301,15 +337,39 @@ def cmd_info(args):
         'BARK_USE_BETTER_TRANSFORMER',
         'HF_HOME',
     ]
-    
+
     for var in env_vars:
         value = os.environ.get(var, '(not set)')
         print(f"  {var}: {value}")
-    
+
     print()
     print("=" * 60)
-    
+
     return 0
+
+
+def cmd_setupwizard(args):
+    """Handle setupwizard command."""
+    try:
+        from bark_infinity.setup_wizard import run_setup_wizard
+
+        run_setup_wizard(
+            mode=args.mode,
+            port=args.port,
+            share=args.share,
+            create_shortcut=args.create_shortcut,
+            install_missing=args.install_missing,
+        )
+        return 0
+    except ValueError as e:
+        print(f"Invalid setup wizard option: {e}")
+        return 1
+    except ImportError as e:
+        print(f"Error: {e}")
+        return 1
+    except Exception as e:
+        print(f"Error running setup wizard: {e}")
+        return 1
 
 
 if __name__ == '__main__':

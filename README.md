@@ -43,7 +43,7 @@ audio = bark_infinity.generate_audio("Hello from low-compute mode!")
 ```
 
 ### 🌐 Web Interface
-
+ 
 ```bash
 # Gradio UI (user-friendly)
 python bark_webui.py
@@ -53,6 +53,18 @@ streamlit run bark_streamlit.py
 ```
 
 Visit http://localhost:7860 to access the interface.
+
+### 🧰 Setup Wizard & One-Click Launcher
+
+```bash
+# Create a desktop launcher for the web UI (default)
+bark-infinity setupwizard
+
+# Streamlit launcher on a custom port
+bark-infinity setupwizard --mode streamlit --port 8501
+```
+
+The setup wizard reports missing dependencies, can install them with `--install-missing`, and writes a one-click desktop launcher script that runs `python -m bark_infinity.cli`.
 
 ## 📚 Documentation
 
