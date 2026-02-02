@@ -54,6 +54,33 @@ streamlit run bark_streamlit.py
 
 Visit http://localhost:7860 to access the interface.
 
+### 🎙️ Windows 10 Studio (New!)
+
+The enterprise-grade voice cloning and audio generation studio:
+
+```bash
+# Launch the studio
+python bark_infinity_studio.py
+
+# Or use the launcher scripts
+launch_studio_windows.bat        # Windows batch
+launch_studio_windows.ps1        # PowerShell
+
+# Or use the command
+bark-studio
+```
+
+Features:
+- **Multi-threaded audio generation** with automatic CPU optimization
+- **Voice Clone Studio** with import/export in NPZ, PKL, JSON formats
+- **Quality analysis** using advanced algorithms
+- **Batch processing** for multiple texts
+- **Professional GUI** with real-time progress
+
+Visit http://localhost:7860 to access the studio interface.
+
+📖 **Complete documentation:** [WINDOWS_RUNTIME.md](WINDOWS_RUNTIME.md)
+
 ### 🧰 Setup Wizard & One-Click Launcher
 
 ```bash
@@ -93,6 +120,32 @@ The setup wizard reports missing dependencies, can install them with `--install-
 See **[MOBILE.md](MOBILE.md)** for complete mobile access guide with step-by-step instructions.
 
 ## 💡 Features
+
+### New in v1.0.0 - Windows 10 Runtime
+
+🔹 **Enterprise-Grade Windows 10 Runtime**
+- Multi-threaded audio generation engine
+- CPU-optimized chunked processing
+- Layered generational architecture (semantic → coarse → fine)
+- Smart caching system for improved performance
+- Priority-based task queue management
+
+🔹 **Comprehensive Voice Clone Studio**
+- Multi-format voice model support (NPZ, PKL, JSON)
+- Import/export voice models easily
+- Advanced quality analysis algorithms
+- Centralized voice model library
+- Batch processing capabilities
+- Voice cloning from audio files
+
+🔹 **Professional GUI Application**
+- Gradio-based user interface
+- Real-time progress tracking
+- Voice model management interface
+- Quality analysis dashboard
+- Windows 10 optimized launcher scripts
+
+See **[WINDOWS_RUNTIME.md](WINDOWS_RUNTIME.md)** for complete documentation.
 
 ### New in v0.1.0
 
