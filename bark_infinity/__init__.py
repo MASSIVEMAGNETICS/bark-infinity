@@ -18,6 +18,20 @@ _LAZY_ATTRS = {
     "load_all_defaults": ("bark_infinity.config", "load_all_defaults"),
     "VALID_HISTORY_PROMPT_DIRS": ("bark_infinity.config", "VALID_HISTORY_PROMPT_DIRS"),
     "FusionTransformer": ("bark_infinity.fusion_transformer", "FusionTransformer"),
+    # Windows Runtime
+    "get_runtime": ("bark_infinity.windows_runtime", "get_runtime"),
+    "shutdown_runtime": ("bark_infinity.windows_runtime", "shutdown_runtime"),
+    "MultiThreadedRuntime": ("bark_infinity.windows_runtime", "MultiThreadedRuntime"),
+    "GenerationTask": ("bark_infinity.windows_runtime", "GenerationTask"),
+    "GenerationResult": ("bark_infinity.windows_runtime", "GenerationResult"),
+    "ChunkedGenerator": ("bark_infinity.windows_runtime", "ChunkedGenerator"),
+    "LayeredGenerationEngine": ("bark_infinity.windows_runtime", "LayeredGenerationEngine"),
+    # Voice Studio
+    "get_voice_studio": ("bark_infinity.voice_studio", "get_voice_studio"),
+    "VoiceStudio": ("bark_infinity.voice_studio", "VoiceStudio"),
+    "VoiceModel": ("bark_infinity.voice_studio", "VoiceModel"),
+    "VoiceModelConverter": ("bark_infinity.voice_studio", "VoiceModelConverter"),
+    "VoiceQualityAnalyzer": ("bark_infinity.voice_studio", "VoiceQualityAnalyzer"),
 }
 
 # Quantization support for low-compute devices

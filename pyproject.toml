@@ -84,6 +84,7 @@ Documentation = "https://github.com/MASSIVEMAGNETICS/bark-infinity#readme"
 bark-infinity = "bark_infinity.cli:main"
 bark-webui = "bark_webui:main"
 bark-streamlit = "bark_streamlit:main"
+bark-studio = "bark_infinity_studio:main"
 
 [tool.setuptools]
 include-package-data = true
