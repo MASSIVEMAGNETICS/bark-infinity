@@ -33,7 +33,17 @@ class TestChunkedGenerator(unittest.TestCase):
         text = "This is a short text."
         chunks = self.generator.split_text(text)
         self.assertEqual(len(chunks), 1)
-        self.assertEqual(chunks[0], text + ".")
+        self.assertTrue(chunks[0].endswith('.'))
+        # Should not have double periods
+        self.assertFalse(chunks[0].endswith('..'))
+    
+    def test_split_text_without_period(self):
+        """Test splitting text without trailing period"""
+        text = "This is text without period"
+        chunks = self.generator.split_text(text)
+        self.assertEqual(len(chunks), 1)
+        self.assertTrue(chunks[0].endswith('.'))
+        self.assertFalse(chunks[0].endswith('..'))
     
     def test_split_text_long(self):
         """Test splitting long text into chunks"""

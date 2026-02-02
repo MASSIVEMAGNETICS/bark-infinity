@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Optional, List, Tuple
 import numpy as np
 from scipy.io.wavfile import write as write_wav
+from datetime import datetime
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -24,7 +25,8 @@ from bark_infinity.windows_runtime import (
 from bark_infinity.voice_studio import (
     get_voice_studio,
     VoiceStudio,
-    VoiceModel
+    VoiceModel,
+    format_timestamp
 )
 from bark_infinity import generation
 from bark_infinity import api
@@ -189,7 +191,7 @@ class BarkInfinityStudioApp:
                     model['id'],
                     model['name'],
                     model['format'],
-                    model['created_at'][:19]  # Truncate timestamp
+                    format_timestamp(model['created_at'])
                 ])
             
             return model_list

@@ -24,6 +24,24 @@ except ImportError:
     torchaudio = None
 
 
+def format_timestamp(timestamp_str: str) -> str:
+    """
+    Format ISO timestamp for display
+    
+    Args:
+        timestamp_str: ISO format timestamp
+        
+    Returns:
+        Formatted timestamp string (YYYY-MM-DD HH:MM:SS)
+    """
+    try:
+        dt = datetime.fromisoformat(timestamp_str)
+        return dt.strftime('%Y-%m-%d %H:%M:%S')
+    except (ValueError, AttributeError):
+        # Fallback to string slicing if parsing fails
+        return timestamp_str[:19] if len(timestamp_str) >= 19 else timestamp_str
+
+
 @dataclass
 class VoiceModel:
     """Voice model metadata and data"""
@@ -73,6 +91,8 @@ class VoiceModelConverter:
     @staticmethod
     def npz_to_dict(npz_path: str) -> Dict:
         """Load NPZ format voice model"""
+        # Note: allow_pickle=True is needed for backward compatibility with some voice models
+        # Only load NPZ files from trusted sources
         data = np.load(npz_path, allow_pickle=True)
         return {
             'semantic_prompt': data.get('semantic_prompt'),

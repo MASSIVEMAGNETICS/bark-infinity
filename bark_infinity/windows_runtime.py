@@ -67,7 +67,11 @@ class ChunkedGenerator:
         for sentence in sentences:
             sentence_length = len(sentence)
             if current_length + sentence_length > self.chunk_size and current_chunk:
-                chunks.append('. '.join(current_chunk) + '.')
+                # Join and add period only if not already present
+                chunk_text = '. '.join(current_chunk)
+                if not chunk_text.endswith('.'):
+                    chunk_text += '.'
+                chunks.append(chunk_text)
                 current_chunk = [sentence]
                 current_length = sentence_length
             else:
@@ -75,7 +79,10 @@ class ChunkedGenerator:
                 current_length += sentence_length
         
         if current_chunk:
-            chunks.append('. '.join(current_chunk) + '.')
+            chunk_text = '. '.join(current_chunk)
+            if not chunk_text.endswith('.'):
+                chunk_text += '.'
+            chunks.append(chunk_text)
         
         return chunks
     
@@ -241,7 +248,8 @@ class MultiThreadedRuntime:
         Returns:
             task_id for tracking
         """
-        priority_tuple = (task.priority, time.time())
+        # Negate priority so higher priority values are processed first
+        priority_tuple = (-task.priority, time.time())
         self.task_queue.put((priority_tuple, task))
         logger.info(f"Task {task.task_id} submitted with priority {task.priority}")
         return task.task_id

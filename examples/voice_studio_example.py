@@ -8,6 +8,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from bark_infinity import get_voice_studio
+from bark_infinity.voice_studio import format_timestamp
 import json
 
 
@@ -33,7 +34,7 @@ def main():
             print(f"{i}. {model['name']}")
             print(f"   ID: {model['id']}")
             print(f"   Format: {model['format']}")
-            print(f"   Created: {model['created_at'][:19]}")
+            print(f"   Created: {format_timestamp(model['created_at'])}")
             print()
     else:
         print("No voice models found in library.")
